@@ -24,7 +24,7 @@ searchBtn.addEventListener('click', (event)=>{
         document.getElementById('emptyField').classList.add('d-none');
 
         //create valid dynamic url
-        const url = `http://openlibrary.org/search.json?q=${inputValue}`;
+        const url = `HTTPS://openlibrary.org/search.json?q=${inputValue}`;
 
         fetch(url)
             .then(res => res.json())
@@ -38,7 +38,7 @@ searchBtn.addEventListener('click', (event)=>{
 
 
 const showData = (data) => {
-    
+
     if(data.docs.length > 0){
         const {numFound} = data;
         const books = data.docs;
@@ -63,7 +63,7 @@ const showData = (data) => {
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="https://covers.openlibrary.org/b/id/${cover_i}-M.jpg" class="img-fluid card-img rounded-start" alt="Book Cover">
+                            <img src="HTTPS://covers.openlibrary.org/b/id/${cover_i}-M.jpg" class="img-fluid card-img rounded-start" alt="Book Cover">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
