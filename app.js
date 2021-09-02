@@ -40,16 +40,18 @@ searchBtn.addEventListener('click', (event)=>{
 const showData = (data) => {
     if(data.docs.length > 0){
         const {numFound} = data;
+        const books = data.docs;
         const span = document.getElementById('resultAmount');
         span.innerHTML = `
-            <h6 class="text-primary mb-4">About (${numFound}) results found:</h6>
-        `
-        const books = data.docs;
+            <h6 class="text-primary mb-4">About (${numFound}) results found. show ${books.length}</h6>
+        `;
 
         books.forEach(element => {
             const parentDiv = document.getElementById('resultShow');
 
             const {title, cover_i, first_publish_year, author_name} = element;
+            const [publisher] = element?.publisher;
+            // console.log(element);
             const author = author_name?.join();
 
             const div = document.createElement('div');
@@ -64,7 +66,8 @@ const showData = (data) => {
                             <div class="card-body">
                                 <h5 class="card-title">${title ? title : "..."}</h5>
                                 <h6 class="text-secondary">by ${author_name ? author : "..."}</h6>
-                                <p class="card-text"><small class="text-muted">First publish in ${first_publish_year ? first_publish_year : "..."}</small></p>
+                                <p class="card-text"><small class="text-muted">First published in ${first_publish_year ? first_publish_year : "..."}</small></p>
+                                <p class="card-text"><small class="text-muted">${publisher ? "Publisher: " + publisher : "..."}</small></p>
                             </div>
                         </div>
                     </div>
