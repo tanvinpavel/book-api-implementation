@@ -1,0 +1,12 @@
+body{
+    background-color: #f4f4f4;
+}
+.card-img{
+    height: 200px;
+}
+#display-none{
+    display: none;
+}
+.spinner-height{
+    height: 400px;
+}
