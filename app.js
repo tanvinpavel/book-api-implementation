@@ -38,22 +38,25 @@ searchBtn.addEventListener('click', (event)=>{
 
 
 const showData = (data) => {
+    
     if(data.docs.length > 0){
         const {numFound} = data;
         const books = data.docs;
         const span = document.getElementById('resultAmount');
         span.innerHTML = `
-            <h6 class="text-primary mb-4">About (${numFound}) results found. show ${books.length}</h6>
+            <h6 class="text-primary mb-4">About <span class="fw-bold text-danger">${numFound}</span> results found. result showed <span class="fw-bold text-danger">(${books.length})</span> :</h6>
         `;
 
         books.forEach(element => {
             const parentDiv = document.getElementById('resultShow');
 
             const {title, cover_i, first_publish_year, author_name} = element;
-            const [publisher] = element?.publisher;
-            // console.log(element);
             const author = author_name?.join();
+            if(element.publisher){
+                var [publisher] = element.publisher;
+            }
 
+            //create a div and append all card on it
             const div = document.createElement('div');
             div.classList.add('col');
             div.innerHTML = `
@@ -82,18 +85,7 @@ const showData = (data) => {
         // stop spinner
         document.getElementById('spinner-field').classList.add('d-none');
         
-        const searchValue = document.getElementById('inputField').value;
-
-        const errorField = document.getElementById('dataNotFound');
-        const div = document.createElement("div");
-        div.classList.add('card', 'text-white', 'bg-danger', 'my-5', 'mx-auto', 'w-75');
-        div.innerHTML = `
-            <div class="card-header">error</div>
-            <div class="card-body">
-                <p class="card-text">No Data Found for "${searchValue}", Try again....</p>
-            </div>
-        `;
-        errorField.appendChild(div);
+        showError();
     }
 }
 
@@ -103,3 +95,18 @@ document.getElementById('inputField').addEventListener('focus', ()=>{
         document.getElementById('inputField').value = '';
     }
 })
+
+const showError= () => {
+    const searchValue = document.getElementById('inputField').value;
+
+    const errorField = document.getElementById('dataNotFound');
+    const div = document.createElement("div");
+    div.classList.add('card', 'text-white', 'bg-danger', 'my-5', 'mx-auto', 'w-75');
+    div.innerHTML = `
+        <div class="card-header">error</div>
+        <div class="card-body">
+            <p class="card-text">No Data Found for "${searchValue}", Try again....</p>
+        </div>
+    `;
+    errorField.appendChild(div);
+}
